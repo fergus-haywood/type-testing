@@ -1,0 +1,54 @@
+@import url("https://use.typekit.net/aij1aqx.css");
+
+:root {
+  --highlight-color: #030303;
+  --heading-font: neue-haas-grotesk-text;
+
+}
+
+/*remove default styles  */
+
+button { 
+  background-color: white;
+  border: 1px solid var(--highlight-color);
+  font-family: var(--heading-font);
+}
+
+  h1 {
+    font-family: var(--heading-font);
+  }
+* { 
+  box-sizing: border-box;
+}
+
+p {
+  font-family: 'Courier New', Courier, monospace
+}
+
+.content-container { 
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  margin-inline: 40px;
+  height: 90vh; 
+}
+
+.container {  
+max-width: 1600px;
+text-align: center
+}
+
+.test-container {
+  border: 1px solid var(--highlight-color);
+  width: 800px;
+  height: 200px;
+  margin: 20px;
+
+}
+
+.input-container { 
+  border: 1px solid var(--highlight-color);
+  width: 800px;
+  height: 200px;
+  margin: 20px;
+}
