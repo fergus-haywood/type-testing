@@ -107,6 +107,7 @@ const wordsArea = document.querySelector('#words-area')
 const inputArea = document.querySelector('#test-input')
 const startBtn = document.querySelector('#start-test-btn')
 const restartBtn = document.querySelector('#restart-test-btn')
+const introEl = document.querySelector('#intro-text')
 
 //stats variables
 
@@ -120,23 +121,27 @@ const currentAccuracyEl = document.querySelector('#current_accuracy')
 let testWordSize = 75
 let testTimeLimit = 0
 let testTimeLeft = 0
+let testTimeElapsed = 0
 let testErrors = 0
-let testWpm = 0
+let testCpm = 0
+let testWpm = testCpm / 5
 let charactersTyped = 0
 let testAccuracy = 0
 let currentWord = ''
 let timer = null
 
-// init mapping stats
+// init mapping
 
 currentErrorsEl.innerHTML = testErrors
 currentTimeEl.innerHTML = testTimeLeft
+introEl.innerHTML = 'Click start to begin the test'
 
 // game functions
 
 let testList = []
 
 function startTest() {
+  introEl.innerHTML = ''
   testList = []
   for (let i = 0; i < testWordSize; i++) {
     let index = Math.floor(Math.random() * testWordSize)
@@ -164,14 +169,6 @@ function restartTest() {
   startTest()
 }
 
-startBtn.addEventListener('click', startTest)
-restartBtn.addEventListener('click', restartTest)
-
-//Getting the current value of the input box
-//Coloring the characters of the word text
-// Calculating the errors and accuracy
-//Moving to next quote
-
 function processText() {
   let currentInput = inputArea.value
   let currentInputArray = currentInput.split('')
@@ -180,22 +177,16 @@ function processText() {
   let currentInputChar = currentInputArray[currentInputIndex]
   let currentTestChar = wordsArray[currentInputIndex]
 
-  testAccuracy = Math.floor(testErrors / charactersTyped)
+  testAccuracy = testErrors / charactersTyped
 
   if (isNaN(testAccuracy)) {
     testAccuracy = 1
   }
-
   if (charactersTyped === 1) {
     timer = setInterval(updateTimer, 1000)
   }
-  if (testTimeLeft == 0) {
-    finishGame()
-  }
-
   let wordsSpanArr = document.querySelectorAll('span')
   // need to make backspaces remove characters and if theres an error, remove the error
-
   if (currentInputChar === currentTestChar) {
     wordsSpanArr[currentInputIndex].classList.remove('remove')
     wordsSpanArr[currentInputIndex].classList.add('correct')
@@ -204,30 +195,37 @@ function processText() {
     wordsSpanArr[currentInputIndex].classList.remove('correct')
     wordsSpanArr[currentInputIndex].classList.add('error')
   }
-
   charactersTyped++
-  currentWpmEl.innerHTML = getWpm()
   currentErrorsEl.innerHTML = testErrors
-  currentAccuracyEl.innerHTML = `${100 - testAccuracy * 100}%`
-  console.log(testAccuracy)
+  currentAccuracyEl.innerHTML = `${Math.floor(100 - testAccuracy * 100)}%`
 }
 
-function getWpm() {
-  let wpm = (charactersTyped * testAccuracy) / (60 - testTimeLeft)
-  return wpm
-}
 function clearInterval() {
   testErrors = 0
-  testWpm = 0
   charactersTyped = 0
   testTimeLeft = 60
+  testTimeElapsed = 0
 }
 
 function updateTimer() {
-  testTimeLeft--
-  currentTimeEl.innerHTML = testTimeLeft
+  if (testTimeLeft > 0) {
+    testTimeElapsed++
+    testTimeLeft--
+    testCpm = Math.floor(
+      ((charactersTyped * (1 - testAccuracy)) / testTimeElapsed) * 60
+    )
+    testWpm = testCpm / 5
+    currentWpmEl.innerHTML = testWpm
+    currentTimeEl.innerHTML = testTimeLeft
+  } else {
+    introEl.innerHTML = 'Click restart to play again'
+    finishGame()
+  }
 }
 
 function finishGame() {
   inputArea.disabled = true
 }
+
+startBtn.addEventListener('click', startTest)
+restartBtn.addEventListener('click', restartTest)
