@@ -141,12 +141,12 @@ introEl.innerHTML = 'Click start to begin the test'
 let testList = []
 
 function startTest() {
-  introEl.innerHTML = ''
   testList = []
   for (let i = 0; i < testWordSize; i++) {
     let index = Math.floor(Math.random() * testWordSize)
     testList.push(commonWords[index])
   }
+  resetValues()
   clearInterval(timer)
 
   wordsArea.innerHTML = ''
@@ -162,10 +162,11 @@ function startTest() {
     })
   startBtn.style.display = 'none'
   restartBtn.style.display = 'block'
+  introEl.innerHTML = 'Click to Restart Test'
 }
 
 function restartTest() {
-  inputArea.value = ''
+  resetValues()
   startTest()
 }
 
@@ -188,7 +189,7 @@ function processText() {
   let wordsSpanArr = document.querySelectorAll('span')
   // need to make backspaces remove characters and if theres an error, remove the error
   if (currentInputChar === currentTestChar) {
-    wordsSpanArr[currentInputIndex].classList.remove('remove')
+    wordsSpanArr[currentInputIndex].classList.remove('error')
     wordsSpanArr[currentInputIndex].classList.add('correct')
   } else {
     testErrors++
@@ -200,11 +201,14 @@ function processText() {
   currentAccuracyEl.innerHTML = `${Math.floor(100 - testAccuracy * 100)}%`
 }
 
-function clearInterval() {
+function resetValues() {
   testErrors = 0
   charactersTyped = 0
   testTimeLeft = 60
   testTimeElapsed = 0
+  testAccuracy = 0
+  inputArea.value = ''
+  inputArea.disabled = false
 }
 
 function updateTimer() {
