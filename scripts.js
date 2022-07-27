@@ -100,7 +100,6 @@ const commonWords = [
   'may',
   'part',
 ]
-
 // els variables
 
 const input = document.querySelector('#test-input')
@@ -123,10 +122,13 @@ let testTimeLimit = 0
 let testTimeLeft = 0
 let testErrors = 0
 let testWpm = 0
-let accuracy = 0
 let charactersTyped = 0
 let currentWord = ''
 let timer = null
+
+// init mapping stats
+
+currentErrorsEl.innerHTML = testErrors
 
 // game functions
 
@@ -141,12 +143,14 @@ function generateTest() {
 
   wordsArea.innerHTML = ''
 
-  testList.forEach((x) => {
-    const span = document.createElement('span')
-    x += ' '
-    span.innerHTML = x
-    wordsArea.appendChild(span)
-  })
+  testList
+    .join(' ')
+    .split('')
+    .forEach((x) => {
+      const span = document.createElement('span')
+      span.innerHTML = x
+      wordsArea.appendChild(span)
+    })
 }
 
 function restartTest() {
@@ -166,9 +170,31 @@ function processText() {
   let currentInput = inputArea.value
   let currentInputArray = currentInput.split('')
   let wordsArray = testList.join(' ').split('')
-
   let currentInputIndex = currentInputArray.length - 1
-
   let currentInputChar = currentInputArray[currentInputIndex]
   let currentTestChar = wordsArray[currentInputIndex]
+  let testAccuracy = Math.floor(100 - (testErrors / charactersTyped) * 100)
+  if (isNaN(testAccuracy)) {
+    testAccuracy = 100
+  }
+
+  let wordsSpanArr = document.querySelectorAll('span')
+
+  //
+
+  if (currentInputChar === currentTestChar) {
+    wordsSpanArr[currentInputIndex].classList.remove('remove')
+    wordsSpanArr[currentInputIndex].classList.add('correct')
+  } else {
+    testErrors++
+    wordsSpanArr[currentInputIndex].classList.remove('correct')
+    wordsSpanArr[currentInputIndex].classList.add('error')
+  }
+
+  charactersTyped++
+
+  currentErrorsEl.innerHTML = testErrors
+  currentAccuracyEl.innerHTML = `${testAccuracy}%`
+  console.log(testAccuracy)
+  console.log(charactersTyped)
 }

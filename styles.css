@@ -73,3 +73,11 @@ text-align: center
   padding: 20px;
   border: none;
 }
+
+.correct { 
+  background-color: green;
+}
+
+.error { 
+  background-color: maroon;
+}
