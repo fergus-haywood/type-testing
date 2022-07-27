@@ -74,6 +74,10 @@ text-align: center
   border: none;
 }
 
+#restart-test-btn { 
+  display: none;
+}
+
 .correct { 
   background-color: green;
 }
