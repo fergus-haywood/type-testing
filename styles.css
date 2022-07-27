@@ -3,7 +3,7 @@
 :root {
   --highlight-color: #030303;
   --heading-font: neue-haas-grotesk-text;
-
+  --body-font: 'Courier New', courier, monospace;
 }
 
 /*remove default styles  */
@@ -12,6 +12,9 @@ button {
   background-color: white;
   border: 1px solid var(--highlight-color);
   font-family: var(--heading-font);
+  cursor: pointer;
+  margin: 10px 0px;
+
 }
 
   h1 {
@@ -22,7 +25,7 @@ button {
 }
 
 p {
-  font-family: 'Courier New', Courier, monospace
+  font-family: var(--body-font);
 }
 
 .content-container { 
@@ -38,12 +41,11 @@ max-width: 1600px;
 text-align: center
 }
 
-.test-container {
+.test-words-container {
   border: 1px solid var(--highlight-color);
   width: 800px;
   height: 200px;
   margin: 20px;
-
 }
 
 .input-container { 
@@ -51,4 +53,23 @@ text-align: center
   width: 800px;
   height: 200px;
   margin: 20px;
+}
+
+.stats-container {
+  display: flex;
+  width: 1000px;
+  justify-content: space-between;
+  
+}
+
+.stats-container div {
+  display: flex;
+  flex-direction: column;
+}
+
+.test__input-area {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  border: none;
 }
