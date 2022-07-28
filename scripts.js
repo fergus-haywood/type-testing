@@ -102,7 +102,6 @@ const commonWords = [
 ]
 // els variables
 
-const input = document.querySelector('#test-input')
 const wordsArea = document.querySelector('#words-area')
 const inputArea = document.querySelector('#test-input')
 const startBtn = document.querySelector('#start-test-btn')
@@ -118,7 +117,7 @@ const currentAccuracyEl = document.querySelector('#current_accuracy')
 
 // test variables
 
-let testWordSize = 75
+let testWordSize = 100
 let testTimeLimit = 0
 let testTimeLeft = 0
 let testTimeElapsed = 0
@@ -141,12 +140,14 @@ introEl.innerHTML = 'Click start to begin the test'
 let testList = []
 
 function startTest() {
+  resetValues()
   testList = []
+
   for (let i = 0; i < testWordSize; i++) {
     let index = Math.floor(Math.random() * testWordSize)
     testList.push(commonWords[index])
   }
-  resetValues()
+
   clearInterval(timer)
 
   wordsArea.innerHTML = ''
@@ -166,7 +167,6 @@ function startTest() {
 }
 
 function restartTest() {
-  resetValues()
   startTest()
 }
 
@@ -183,9 +183,18 @@ function processText() {
   if (isNaN(testAccuracy)) {
     testAccuracy = 1
   }
-  if (charactersTyped === 1) {
+
+  if (charactersTyped === 0) {
     timer = setInterval(updateTimer, 1000)
   }
+
+  //scroll up when getting low
+
+  if (charactersTyped % 130 === 0 && charactersTyped != 0) {
+    wordsArea.style.bottom = `${charactersTyped - 30}px`
+    inputArea.style.bottom = `${charactersTyped - 30}px`
+  }
+
   let wordsSpanArr = document.querySelectorAll('span')
   // need to make backspaces remove characters and if theres an error, remove the error
   if (currentInputChar === currentTestChar) {
@@ -207,6 +216,8 @@ function resetValues() {
   testTimeLeft = 60
   testTimeElapsed = 0
   testAccuracy = 0
+  wordsArea.style.bottom = '0px'
+  inputArea.style.bottom = '0px'
   inputArea.value = ''
   inputArea.disabled = false
 }
