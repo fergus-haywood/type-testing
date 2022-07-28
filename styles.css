@@ -125,6 +125,7 @@ opacity: 1 !important;
 }
 
 .error { 
-  background-color: maroon;
+
+  color: maroon;
   opacity: 1 !important;
 }
