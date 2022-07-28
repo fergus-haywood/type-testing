@@ -107,16 +107,12 @@ function processText() {
     if (wordsSpanArr[currentInputIndex + 1].classList.contains('error')) {
       wordsSpanArr[currentInputIndex + 1].classList.remove('error')
       testErrors--
-      console.log(`current index is ${currentInputIndex + 1}`)
-      console.log(testErrors)
-      console.log('removed error')
     }
   } else if (currentInputChar === currentTestChar) {
     wordsSpanArr[currentInputIndex].classList.remove('error')
     wordsSpanArr[currentInputIndex].classList.add('correct')
   } else {
     testErrors++
-    console.log(testErrors)
     wordsSpanArr[currentInputIndex].classList.remove('correct')
     wordsSpanArr[currentInputIndex].classList.add('error')
   }
@@ -139,6 +135,7 @@ function resetValues() {
   currentErrorsEl.innerHTML = testErrors
   currentAccuracyEl.innerHTML = ''
   currentWpmEl.innerHTML = ''
+  finalWpmEl.innerHTML = ''
 }
 
 function updateTimer() {
