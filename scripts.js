@@ -26,7 +26,7 @@ let testTimeLeft = 0
 let testTimeElapsed = 0
 let testErrors = 0
 let testCpm = 0
-let testWpm = testCpm / 5
+let testWpm = Math.floor(testCpm / 5)
 let charactersTyped = 0
 let testAccuracy = 0
 let currentWord = ''
@@ -148,7 +148,7 @@ function updateTimer() {
     testCpm = Math.floor(
       ((charactersTyped * (1 - testAccuracy)) / testTimeElapsed) * 60
     )
-    testWpm = testCpm / 5
+    testWpm = Math.floor(testCpm / 5)
     currentWpmEl.innerHTML = testWpm
     currentTimeEl.innerHTML = testTimeLeft
   } else {
