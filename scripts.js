@@ -92,7 +92,6 @@ function processText() {
   if (charactersTyped === 0) {
     timer = setInterval(updateTimer, 1000)
   }
-
   //scroll up when getting low
 
   if (charactersTyped % 80 === 0 && charactersTyped != 0) {
@@ -101,15 +100,27 @@ function processText() {
   }
 
   let wordsSpanArr = document.querySelectorAll('span')
+
   // need to make backspaces remove characters and if theres an error, remove the error
-  if (currentInputChar === currentTestChar) {
+  if (charactersTyped > currentInputIndex) {
+    charactersTyped -= 2
+    if (wordsSpanArr[currentInputIndex + 1].classList.contains('error')) {
+      wordsSpanArr[currentInputIndex + 1].classList.remove('error')
+      testErrors--
+      console.log(`current index is ${currentInputIndex + 1}`)
+      console.log(testErrors)
+      console.log('removed error')
+    }
+  } else if (currentInputChar === currentTestChar) {
     wordsSpanArr[currentInputIndex].classList.remove('error')
     wordsSpanArr[currentInputIndex].classList.add('correct')
   } else {
     testErrors++
+    console.log(testErrors)
     wordsSpanArr[currentInputIndex].classList.remove('correct')
     wordsSpanArr[currentInputIndex].classList.add('error')
   }
+
   charactersTyped++
   currentErrorsEl.innerHTML = testErrors
   currentAccuracyEl.innerHTML = `${Math.floor(100 - testAccuracy * 100)}%`
