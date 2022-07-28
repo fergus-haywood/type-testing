@@ -1,105 +1,6 @@
-const commonWords = [
-  'the',
-  'of',
-  'and',
-  'a',
-  'to',
-  'in',
-  'is',
-  'you',
-  'that',
-  'it',
-  'he',
-  'was',
-  'for',
-  'on',
-  'are',
-  'as',
-  'with',
-  'his',
-  'they',
-  'I',
-  'at',
-  'be',
-  'this',
-  'have',
-  'from',
-  'or',
-  'one',
-  'had',
-  'by',
-  'word',
-  'but',
-  'not',
-  'what',
-  'all',
-  'were',
-  'we',
-  'when',
-  'your',
-  'can',
-  'said',
-  'there',
-  'use',
-  'an',
-  'each',
-  'which',
-  'she',
-  'do',
-  'how',
-  'their',
-  'if',
-  'will',
-  'up',
-  'other',
-  'about',
-  'out',
-  'many',
-  'then',
-  'them',
-  'these',
-  'so',
-  'some',
-  'her',
-  'would',
-  'make',
-  'like',
-  'him',
-  'into',
-  'time',
-  'has',
-  'look',
-  'two',
-  'more',
-  'write',
-  'go',
-  'see',
-  'number',
-  'no',
-  'way',
-  'could',
-  'people',
-  'my',
-  'than',
-  'first',
-  'water',
-  'been',
-  'call',
-  'who',
-  'oil',
-  'its',
-  'now',
-  'find',
-  'long',
-  'down',
-  'day',
-  'did',
-  'get',
-  'come',
-  'made',
-  'may',
-  'part',
-]
+// prettier-ignore
+const commonWords =  ["the", "of", "to", "and", "a", "in", "is", "it", "you", "that", "he", "was", "for", "on", "are", "with", "as", "I", "his", "they", "be", "at", "one", "have", "this", "from", "or", "had", "by", "not", "word", "but", "what", "some", "we", "can", "out", "other", "were", "all", "there", "when", "up", "use", "your", "how", "said", "an", "each", "she", "which", "do", "their", "time", "if", "will", "way", "about", "many", "then", "them", "write", "would", "like", "so", "these", "her", "long", "make", "thing", "see", "him", "two", "has", "look", "more", "day", "could", "go", "come", "did", "number", "sound", "no", "most", "people", "my", "over", "know", "water", "than", "call", "first", "who", "may", "down", "side", "been", "now", "find", "any", "new", "work", "part", "take", "get", "place", "made", "live", "where", "after", "back", "little", "only", "round", "man", "year", "came", "show", "every", "good", "me", "give", "our", "under", "name", "very", "through", "just", "form", "sentence", "great", "think", "say", "help", "low", "line", "differ", "turn", "cause", "much", "mean", "before", "move", "right", "boy", "old", "too", "same", "tell", "does", "set", "three", "want", "air", "well", "also", "play", "small", "end", "put", "home", "read", "hand", "port", "large", "spell", "add", "even", "land", "here", "must", "big", "high", "such", "follow", "act", "why", "ask", "men", "change", "went", "light", "kind", "off", "need", "house", "picture", "try", "us", "again", "animal", "point", "mother", "world", "near", "build", "self", "earth", "father", "head", "stand", "own", "page", "should", "country", "found", "answer", "school", "grow", "study", "still", "learn", "plant", "cover", "food", "sun", "four", "between", "state", "keep", "eye", "never", "last", "let", "thought", "city", "tree", "cross", "farm", "hard", "start", "might", "story", "saw", "far", "sea", "draw", "left", "late", "run", "don't", "while", "press", "close", "night", "real", "life", "few", "north", "open", "seem", "together", "next", "white", "children", "begin", "got", "walk", "example", "ease", "paper", "group", "always", "music", "those", "both", "mark", "often", "letter", "until", "mile", "river", "car", "feet", "care", "second", "book", "carry", "took", "science", "eat", "room", "friend", "began", "idea", "fish", "mountain", "stop", "once", "base", "hear", "horse", "cut", "sure", "watch", "color", "face", "wood", "main"]
+
 // els variables
 
 const wordsArea = document.querySelector('#words-area')
@@ -114,10 +15,12 @@ const currentWpmEl = document.querySelector('#current_wpm')
 const currentErrorsEl = document.querySelector('#current_errors')
 const currentTimeEl = document.querySelector('#current_time')
 const currentAccuracyEl = document.querySelector('#current_accuracy')
+const finalWpmEl = document.querySelector('#display__wpm')
+const finalErrorsEl = document.querySelector('#display__errors')
 
 // test variables
 
-let testWordSize = 100
+let testWordSize = 300
 let testTimeLimit = 0
 let testTimeLeft = 0
 let testTimeElapsed = 0
@@ -138,8 +41,10 @@ introEl.innerHTML = 'Click start to begin the test'
 // game functions
 
 let testList = []
+inputArea.disabled = true
 
 function startTest() {
+  inputArea.disabled = false
   resetValues()
   testList = []
 
@@ -190,7 +95,7 @@ function processText() {
 
   //scroll up when getting low
 
-  if (charactersTyped % 130 === 0 && charactersTyped != 0) {
+  if (charactersTyped % 80 === 0 && charactersTyped != 0) {
     wordsArea.style.bottom = `${charactersTyped - 30}px`
     inputArea.style.bottom = `${charactersTyped - 30}px`
   }
@@ -220,6 +125,9 @@ function resetValues() {
   inputArea.style.bottom = '0px'
   inputArea.value = ''
   inputArea.disabled = false
+  currentErrorsEl.innerHTML = testErrors
+  currentAccuracyEl.innerHTML = ''
+  currentWpmEl.innerHTML = ''
 }
 
 function updateTimer() {
@@ -233,13 +141,14 @@ function updateTimer() {
     currentWpmEl.innerHTML = testWpm
     currentTimeEl.innerHTML = testTimeLeft
   } else {
-    introEl.innerHTML = 'Click restart to play again'
+    introEl.innerHTML = 'Test Finished <br>Click restart to play again'
     finishGame()
   }
 }
 
 function finishGame() {
   inputArea.disabled = true
+  finalWpmEl.innerHTML = `Your Words Per Minute: ${testWpm}`
 }
 
 startBtn.addEventListener('click', startTest)
