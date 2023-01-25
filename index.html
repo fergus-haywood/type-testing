@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header>
+    <nav>
+      <h1>Typing Speed Test</h1>
+    </nav>
+  </header>
+  <main>
+    <div class="content-container">
+      <div class="container stats-container">
+        <div class = "stats__current-wpm">
+          <p>Current WPM:</p>
+          <p id ="current_wpm"></p>
+        </div>
+        <div class = "stats__current-errors">
+          <p>Current Errors:</p>
+          <p id ="current_errors"></p>
+        </div>
+        <div class = "stats__current-time">
+          <p>Current Time:</p>
+          <p id ="current_time"></p>
+        </div>
+        <div class = "stats__accuracy">
+          <p>Current Accuracy:</p>
+          <p id ="current_accuracy"></p>
+        </div>
+      </div>
+      <div class="window">
+
+      </div>
+      <div  class="container test-words-container">
+        <p id="words-area" >
+          </p>
+    </div>
+    <div class="container input-container">
+      <textarea class = "test__input-area"
+                id="test-input"
+                placeholder = ""
+                onInput = "processText()"
+                onFocus = ""
+                data-gramm="false"
+                data-gramm_editor="false"
+                data-enable-grammarly="false"
+                ></textarea>
+  </div>
+  <div class="container intro-container">
+    <p id = "intro-text">
+    </p>
+  </div>
+    <button id="start-test-btn" class="main-btn">
+      Start Test
+    </button>
+    <button id="restart-test-btn" class="secondary-btn">
+      Restart Test
+    </button>
+    <h2 id = "display__wpm">
+    </h2>
+  </div>
+  </main>
+    
+    <script src="scripts.js"  defer></script>
+  </body>
+</html>
